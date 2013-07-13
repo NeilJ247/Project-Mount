@@ -1,0 +1,16 @@
+{
+	"Example Project 1":
+	{
+		"user": "your_username",
+		"host": "www.your_website.com",
+		"remote_dir": "/home/your_remote_dir/",
+		"mount_point": "/home/your_username/Remote Projects/Your Remote Project Folder"
+	},
+	"Example Project 2":
+	{
+		"user": "your_username",
+		"host": "www.your_website.com",
+		"remote_dir": "/home/your_remote_dir/",
+		"mount_point": "/home/your_username/Remote Projects/Your Remote Project Folder"
+	}
+}

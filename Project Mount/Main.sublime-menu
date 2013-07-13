@@ -1,0 +1,22 @@
+[
+{
+	"id": "project",
+	"children":
+	[
+		{
+			"caption": "Mount a project...",
+			"command": "mount",
+			"args": {"action": "mount"}
+		},
+		{
+			"caption": "Unmount a project...",
+			"command": "mount",
+			"args": {"action": "unmount"}
+		},
+		{
+			"caption": "Edit mount settings...",
+			"command": "settings"
+		}
+	]
+}
+]
