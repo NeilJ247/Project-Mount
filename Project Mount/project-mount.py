@@ -3,6 +3,7 @@ import sublime_plugin
 import subprocess
 import json
 import os
+import re
 
 class MountCommand(sublime_plugin.TextCommand):
 
@@ -96,6 +97,16 @@ class MountCommand(sublime_plugin.TextCommand):
         sublime.error_message("Please check that your settings for " + project_selected + " exist and are correct")
         return
 
+    def is_ip_address(self, host):
+        ip_pattern = "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$"
+        if (re.match(ip_pattern, host)):
+            return True        
+        else:
+            return False
+
+    def enclose_ip_address(self, ip):
+        return "[%s]" % ip
+
     def unmount(self, project):
         self.mount(project, self.CONST_UNMOUNT)
 
@@ -103,8 +114,12 @@ class MountCommand(sublime_plugin.TextCommand):
         if (self.settings.verify_settings(project) == True):
             command = ""
             if (action == self.CONST_MOUNT):
-                command = "sshfs %s@%s:%s '%s'" % (self.settings.get_project_setting(project, "user"), 
-                                                    self.settings.get_project_setting(project, "host"), 
+                host = self.settings.get_project_setting(project, "host")
+                if (self.is_ip_address(host)):
+                    host = self.enclose_ip_address(host)
+
+                command = "sshfs %s@%s:'%s' '%s'" % (self.settings.get_project_setting(project, "user"), 
+                                                    host, 
                                                     self.settings.get_project_setting(project, "remote_dir"),
                                                     self.settings.get_project_setting(project, "mount_point"))
             elif (action == self.CONST_UNMOUNT):
