@@ -157,7 +157,6 @@ class ProjectSettings():
     def get_project_settings(self):
         return self.settings
 
-
     def setting_is_none(self, settings):
         if (isinstance(settings, list)):
             for setting in settings:
